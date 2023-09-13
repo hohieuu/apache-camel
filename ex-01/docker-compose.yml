@@ -1,0 +1,41 @@
+version: '2.2'
+services:
+  db1:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    image: db
+    container_name: db1
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./db/data:/var/lib/postgresql/data1
+  db2:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    image: db
+    container_name: db2
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./db/data:/var/lib/postgresql/data2
+  camel:
+    build:
+      context: ./camel
+      dockerfile: Dockerfile
+    image: camel
+    container_name: camel
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db1
+      - db2

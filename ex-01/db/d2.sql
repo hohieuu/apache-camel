@@ -1,0 +1,4 @@
+CREATE TABLE Table1 (
+    id SERIAL PRIMARY KEY,
+    body JSONB
+);

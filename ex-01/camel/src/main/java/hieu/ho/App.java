@@ -1,18 +1,20 @@
 package hieu.ho;
 
-import org.apache.camel.main.Main;
-
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
 public class App {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        Main main = new Main();
-        main.configure().addRoutesBuilder(new Route());
-        try {
-            main.run(args);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
+
+    private static final long DURATION_MILIS = 10000;
+
+  public static void main(String[] args) throws Exception {
+    System.out.println("Hello World!");
+    try (CamelContext context = new DefaultCamelContext()) {
+        context.addRoutes(new Route());
+        context.start();
+        Thread.sleep(DURATION_MILIS);
+        context.stop();
+    }
+   
+  }
 }

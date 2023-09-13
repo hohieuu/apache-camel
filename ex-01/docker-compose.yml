@@ -21,7 +21,7 @@ services:
     image: db
     container_name: db2
     ports:
-      - "5433:5433"
+      - "5555:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

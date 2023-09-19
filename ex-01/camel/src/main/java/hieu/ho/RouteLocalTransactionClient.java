@@ -31,7 +31,7 @@ public class RouteLocalTransactionClient extends RouteBuilder {
     from("timer://hello?fixedRate=true&period=10000").to("direct:queryFromDb1");
 
     from("direct:queryFromDb1")
-      // .transacted()
+      .transacted()
       .to(
         "sql:SELECT * FROM Table1?dataSource=#dataSource1&outputType=StreamList&outputClass=hieu.ho.CustomModel"
       )

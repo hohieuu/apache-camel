@@ -10,7 +10,7 @@ public class App {
   public static void main(String[] args) throws Exception {
     System.out.println("Hello World!");
     try (CamelContext context = new DefaultCamelContext()) {
-        context.addRoutes(new Route());
+        context.addRoutes(new RouteLocalTransactionClient());
         context.start();
         Thread.sleep(DURATION_MILIS);
         context.stop();

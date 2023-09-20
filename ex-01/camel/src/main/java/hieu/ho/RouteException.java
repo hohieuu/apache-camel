@@ -30,9 +30,12 @@ public class RouteException extends RouteBuilder {
           throw new NullPointerException("null pointer exception");
         }
       })
-      // if throw exception in try block, it'll retry the whole block
+      // IF throw exception in try block, it'll retry the whole block
       // .log("count > 50?")
       // .throwException(new Exception())
+
+      // IF helloroute throw exception, it can't be caught by doCatch
+      // .to("direct:helloroute")
       .to("direct:success")
       .doCatch(Exception.class)
       .throwException(new CustomGrpcError())
@@ -41,5 +44,8 @@ public class RouteException extends RouteBuilder {
 
     from("direct:exception").log("log failed");
     from("direct:success").log("log success");
+    from("direct:helloroute")
+      .log("log helloroute")
+      .throwException(new Exception());
   }
 }

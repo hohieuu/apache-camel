@@ -26,10 +26,13 @@ public class RouteException extends RouteBuilder {
         count++;
         log.info("Retry: " + count);
         // if condition is count < 200, the route will be directed to direct:exception because it's just retry 100 times
-        if (count < 200) {
+        if (count < 50) {
           throw new NullPointerException("null pointer exception");
         }
       })
+      // if throw exception in try block, it'll retry the whole block
+      // .log("count > 50?")
+      // .throwException(new Exception())
       .to("direct:success")
       .doCatch(Exception.class)
       .throwException(new CustomGrpcError())
